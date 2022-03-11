@@ -1,0 +1,11 @@
+version: '3.7'
+services:
+  void:
+    build:
+      context: .
+    init: true
+    logging:
+      driver: journald
+    ports:
+      - '23666:23666'
+    restart: unless-stopped
