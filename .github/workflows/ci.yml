@@ -21,3 +21,28 @@ jobs:
           python-version: '${{ matrix.python-version }}'
       - name: Run tests
         run: ./test/test.sh
+
+  deploy:
+    needs: [test]
+    runs-on: ubuntu-latest
+    name: Deploy
+    if: github.ref == 'refs/heads/master'
+    env:
+      DOCKER_HOST: 'tcp://${{ secrets.DEPLOY_DOCKER_HOST }}:${{ secrets.DEPLOY_DOCKER_PORT }}'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Set up VPN
+        uses: egor-tensin/setup-wireguard@v1
+        with:
+          endpoint: '${{ secrets.WG_ENDPOINT }}'
+          endpoint_public_key: '${{ secrets.WG_ENDPOINT_PUBLIC_KEY }}'
+          ips: '${{ secrets.WG_IPS }}'
+          allowed_ips: '${{ secrets.WG_ALLOWED_IPS }}'
+          private_key: '${{ secrets.WG_PRIVATE_KEY }}'
+          preshared_key: '${{ secrets.WG_PRESHARED_KEY }}'
+      - name: Deploy
+        run: |
+          docker-compose pull
+          docker-compose build --pull
+          docker-compose up -d
