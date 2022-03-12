@@ -108,6 +108,9 @@ curl_check_keyword() {
         if ! grep --fixed-strings --quiet -- "$keyword" "$curl_output_file"; then
             dump "The following pattern hasn't been found:"
             dump "$keyword"
+            dump "The output was:"
+            cat -- "$curl_output_file"
+            return 1
         fi
     done
 }
@@ -133,11 +136,14 @@ run_curl_test() {
 
 run_curl_tests() {
     # / and /index.html are identical:
-    #run_curl_test '/'           '<link rel="stylesheet" href="css/bootstrap.min.css">' 'var status_refresh_interval_seconds'
-    #run_curl_test '/index.html' '<link rel="stylesheet" href="css/bootstrap.min.css">' 'var status_refresh_interval_seconds'
+    run_curl_test /           '<title>Орём!</title>' 'var screams_now'
+    run_curl_test /index.html '<title>Орём!</title>' 'var screams_now'
 
-    run_curl_test '/screams' '0'
-    run_curl_test '/scream' '1'
+    run_curl_test /screams 0
+    run_curl_test /scream  1
+    run_curl_test /scream  2
+    run_curl_test /scream  3
+    run_curl_test /screams 3
 }
 
 cgi_check_header() {
@@ -179,8 +185,12 @@ run_cgi_test() {
 run_cgi_tests() {
     # Check that app.py still works as a CGI script.
 
-    run_cgi_test 'screams' '0'
-    run_cgi_test 'scream' '1'
+    # app.py doesn't save state between invocations, obviously.
+    run_cgi_test screams 0
+    run_cgi_test scream  1
+    run_cgi_test scream  1
+    run_cgi_test scream  1
+    run_cgi_test screams 0
 }
 
 main() {
