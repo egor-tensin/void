@@ -87,11 +87,11 @@ class Void:
             self.cnt = cnt
 
     def save(self, path):
-        with open(path, 'w') as fd:
+        with open(path, 'w', encoding='utf-8') as fd:
             self.write(fd)
 
     def restore(self, path):
-        with open(path) as fd:
+        with open(path, encoding='utf-8') as fd:
             self.read(fd)
 
     def scream_once(self):
