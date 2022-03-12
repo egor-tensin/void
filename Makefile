@@ -40,6 +40,10 @@ clean:
 view:
 	xdg-open '$(call escape,$(URL))' &> /dev/null
 
+.PHONY: test
+test:
+	./test/test.sh
+
 DOCKER_HOST ?= unix:///var/run/docker.sock
 $(eval $(call noexpand,DOCKER_HOST))
 export DOCKER_HOST
