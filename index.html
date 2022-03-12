@@ -28,6 +28,15 @@ html, body {
   content: '\200B';
   visibility: hidden;
 }
+
+/*
+ * The fucking font boosting on Android's Chrome.
+ * This does seem to disable it, for God knows what reason:
+ * https://stackoverflow.com/a/16432702/514684
+ */
+html * {
+  max-height: 1000000px;
+}
     </style>
   </head>
   <body>
