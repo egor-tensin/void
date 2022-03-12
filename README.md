@@ -3,7 +3,9 @@ void
 
 [![CI](https://github.com/egor-tensin/void/actions/workflows/ci.yml/badge.svg)](https://github.com/egor-tensin/void/actions/workflows/ci.yml)
 
-Screaming into the void xDDD :'(((
+[Орём ебать](https://egort.name/void/) xDDD
+
+:'(((
 
 License
 -------
