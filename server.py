@@ -59,6 +59,11 @@ def handle_sigterm(signum, frame):
     set_exiting()
 
 
+def handle_sigint():
+    print('\nKeyboard interrupt received, exiting...')
+    set_exiting()
+
+
 @contextmanager
 def setup_signal_handlers(httpd):
     handler_thread = SignalHandler(httpd)
@@ -119,8 +124,7 @@ def main(args=None):
             try:
                 httpd.serve_forever()
             except KeyboardInterrupt:
-                print('\nKeyboard interrupt received, exiting...')
-                set_exiting()
+                handle_sigint()
 
 
 if __name__ == '__main__':
