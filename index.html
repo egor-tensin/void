@@ -21,6 +21,13 @@ html, body {
   text-align: center;
   min-height: 100vh;
 }
+
+/* This is cool: https://stackoverflow.com/a/33298969/514684
+ * Makes sure the button doesn't jump up. */
+#note:empty:after {
+  content: '\200B';
+  visibility: hidden;
+}
     </style>
   </head>
   <body>
