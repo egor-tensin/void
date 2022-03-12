@@ -9,3 +9,7 @@ services:
     ports:
       - '23666:23666'
     restart: unless-stopped
+    volumes:
+      - state:/var/lib/void
+volumes:
+  state:
