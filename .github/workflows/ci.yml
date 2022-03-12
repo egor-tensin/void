@@ -42,7 +42,4 @@ jobs:
           private_key: '${{ secrets.WG_PRIVATE_KEY }}'
           preshared_key: '${{ secrets.WG_PRESHARED_KEY }}'
       - name: Deploy
-        run: |
-          docker-compose pull
-          docker-compose build --pull
-          docker-compose up -d
+        run: make deploy
