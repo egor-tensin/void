@@ -6,4 +6,4 @@ RUN mkdir -p /var/lib/void
 COPY [".", "/usr/src/"]
 WORKDIR /usr/src
 
-CMD ./server.py --void /var/lib/void/void.state
+CMD ["./server.py", "--void", "/var/lib/void/void.state"]

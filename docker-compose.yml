@@ -3,7 +3,6 @@ services:
   void:
     build:
       context: .
-    init: true
     logging:
       driver: journald
     ports:
