@@ -3,6 +3,7 @@ services:
   void:
     build:
       context: .
+    image: egortensin/void:master
     logging:
       driver: journald
     ports:
