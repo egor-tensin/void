@@ -1,6 +1,5 @@
-FROM alpine:3.15
+FROM python:3.10-alpine
 
-RUN apk add --no-cache python3
 RUN mkdir -p /var/lib/void
 
 COPY [".", "/usr/src/"]
