@@ -9,14 +9,14 @@ jobs:
   test:
     strategy:
       matrix:
-        python-version: [3.6, 3.7, 3.8, 3.9, 3.x]
+        python-version: ['3.6', '3.7', '3.8', '3.9', '3.10']
     runs-on: ubuntu-latest
     name: 'Python ${{ matrix.python-version }}'
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Set up Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
           python-version: '${{ matrix.python-version }}'
       - name: Run tests
@@ -30,7 +30,7 @@ jobs:
     steps:
       - id: meta
         name: Docker Hub metadata
-        uses: docker/metadata-action@v3
+        uses: docker/metadata-action@v4
         with:
           images: '${{ secrets.DOCKERHUB_USERNAME }}/void'
           flavor: |
@@ -41,12 +41,12 @@ jobs:
             type=semver,pattern={{major}}.{{minor}}
             type=semver,pattern={{major}}
       - name: Login to Docker Hub
-        uses: docker/login-action@v1
+        uses: docker/login-action@v2
         with:
           username: '${{ secrets.DOCKERHUB_USERNAME }}'
           password: '${{ secrets.DOCKERHUB_TOKEN }}'
       - name: Build and publish
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v3
         with:
           push: true
           tags: '${{ steps.meta.outputs.tags }}'
