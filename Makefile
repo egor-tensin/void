@@ -49,13 +49,13 @@ DOCKER_HOST ?= unix:///var/run/docker.sock
 $(eval $(call noexpand,DOCKER_HOST))
 export DOCKER_HOST
 
-.PHONY: docker-build
-docker-build:
+.PHONY: build/docker
+build/docker:
 	docker-compose pull
 	docker-compose build --pull
 
-.PHONY: docker-serve
-docker-serve: docker-build
+.PHONY: serve/docker
+serve/docker: build/docker
 	docker-compose up
 
 .PHONY: deploy
