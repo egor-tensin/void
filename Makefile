@@ -20,14 +20,14 @@ ifeq ($$(origin $(1)),command line)
 endif
 endef
 
-.PHONY: all
-all: serve
-
 PORT ?= 23666
 $(eval $(call noexpand,PORT))
 
 URL := http://localhost:$(PORT)/
 STATE := ./void.state
+
+.PHONY: all
+all: serve
 
 .PHONY: serve
 serve:
@@ -45,21 +45,19 @@ view:
 test:
 	./test/test.sh
 
-DOCKER_HOST ?= unix:///var/run/docker.sock
-$(eval $(call noexpand,DOCKER_HOST))
-export DOCKER_HOST
+.PHONY: build
+build: docker/build
 
-.PHONY: build/docker
-build/docker:
-	docker-compose pull
+.PHONY: docker/build
+docker/build:
 	docker-compose build --pull
 
-.PHONY: serve/docker
-serve/docker: build/docker
+.PHONY: docker/serve
+docker/serve: build/docker
 	docker-compose up
 
 .PHONY: deploy
-deploy: docker-build
+deploy: docker/build
 	docker-compose up -d
 
 .PHONY: undeploy
