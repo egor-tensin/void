@@ -50,7 +50,7 @@ build: docker/build
 
 .PHONY: docker/build
 docker/build:
-	docker-compose build --pull
+	docker-compose build --progress plain --pull
 
 .PHONY: docker/serve
 docker/serve: build/docker
