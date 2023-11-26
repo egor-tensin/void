@@ -3,7 +3,7 @@ void
 
 [![CI](https://github.com/egor-tensin/void/actions/workflows/ci.yml/badge.svg)](https://github.com/egor-tensin/void/actions/workflows/ci.yml)
 
-[Орём ебать](https://egort.name/void/) xDDD
+[Орём ебать](https://tensin.name/void/) xDDD
 
     :'(((
 
