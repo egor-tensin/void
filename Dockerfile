@@ -1,4 +1,5 @@
-FROM python:3.14-alpine
+# The cgi module was removed in 3.13.
+FROM python:3.12-alpine
 
 RUN mkdir -p /var/lib/void
 
