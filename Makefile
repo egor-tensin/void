@@ -30,16 +30,16 @@ build: docker/build
 
 .PHONY: docker/build
 docker/build:
-	docker-compose build --progress plain --pull
+	docker compose build --progress plain --pull
 
 .PHONY: docker/serve
 docker/serve: build/docker
-	docker-compose up
+	docker compose up
 
 .PHONY: deploy
 deploy: docker/build
-	docker-compose up -d
+	docker compose up -d
 
 .PHONY: undeploy
 undeploy:
-	docker-compose down --rmi all --volumes
+	docker compose down --rmi all --volumes
