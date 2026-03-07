@@ -52,7 +52,7 @@ jobs:
           username: '${{ secrets.DOCKERHUB_USERNAME }}'
           password: '${{ secrets.DOCKERHUB_TOKEN }}'
       - name: Build and publish
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v7
         with:
           # Without context, .dockerignore is not respected?
           # https://stackoverflow.com/a/74552407/514684
