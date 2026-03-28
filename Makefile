@@ -3,43 +3,37 @@ include prelude.mk
 PORT ?= 23666
 $(eval $(call noexpand,PORT))
 
-URL := http://localhost:$(PORT)/
-STATE := ./void.state
+url := http://localhost:$(PORT)/
+state := ./void.state
+
+venv_dir := .venv
+venv_activate := . '$(call escape,$(venv_dir)/bin/activate)'
 
 .PHONY: all
 all: serve
 
+.PHONY: venv/reset
+venv/reset:
+	rm -rf -- '$(call escape,$(venv_dir))'
+	mkdir -p -- '$(call escape,$(venv_dir))'
+	python -m venv -- '$(call escape,$(venv_dir))'
+
+.PHONY: venv
+venv: venv/reset
+	$(venv_activate) && pip install -q -r requirements.txt
+
 .PHONY: serve
 serve:
-	./server.py --port '$(call escape,$(PORT))' --void '$(call escape,$(STATE))'
+	$(venv_activate) && ./server.py --port '$(call escape,$(PORT))' --void '$(call escape,$(state))'
 
 .PHONY: clean
 clean:
-	rm -f -- '$(call escape,$(STATE))'
+	rm -f -- '$(call escape,$(state))'
 
 .PHONY: view
 view:
-	xdg-open '$(call escape,$(URL))' &> /dev/null
+	xdg-open '$(call escape,$(url))' &> /dev/null
 
 .PHONY: test
 test:
 	./test/test.sh
-
-.PHONY: build
-build: docker/build
-
-.PHONY: docker/build
-docker/build:
-	docker compose build --progress plain --pull
-
-.PHONY: docker/serve
-docker/serve: build/docker
-	docker compose up
-
-.PHONY: deploy
-deploy: docker/build
-	docker compose up -d
-
-.PHONY: undeploy
-undeploy:
-	docker compose down --rmi all --volumes

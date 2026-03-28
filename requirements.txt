@@ -1,0 +1,2 @@
+# The cgi module was removed in 3.13.
+legacy-cgi; python_version >= '3.13'

@@ -1,10 +1,11 @@
-# The cgi module was removed in 3.13.
 FROM python:3.12-alpine
 
 RUN mkdir -p /var/lib/void
 
 COPY [".", "/usr/src/"]
 WORKDIR /usr/src
+
+RUN pip install -q -r requirements.txt
 
 # I don't know why, but in Docker, simple print() statements show nothing:
 # https://stackoverflow.com/q/29663459
