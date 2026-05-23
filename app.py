@@ -138,8 +138,9 @@ def parse_args(args=None):
     if args is None:
         args = sys.argv[1:]
     parser = argparse.ArgumentParser()
-    parser.add_argument('-v', '--void', metavar='PATH', dest='backup',
-                        help='set path to the void')
+    parser.add_argument(
+        '-v', '--void', metavar='PATH', dest='backup', help='set path to the void'
+    )
     return parser.parse_args(args)
 
 
