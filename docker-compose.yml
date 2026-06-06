@@ -1,4 +1,3 @@
-version: '3.7'
 services:
   void:
     build:
@@ -11,5 +10,6 @@ services:
     restart: unless-stopped
     volumes:
       - state:/var/lib/void
+
 volumes:
   state:
