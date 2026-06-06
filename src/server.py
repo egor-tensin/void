@@ -24,6 +24,10 @@ def script_dir():
     return os.path.dirname(os.path.realpath(__file__))
 
 
+def default_html_dir():
+    return os.path.join(script_dir(), 'html')
+
+
 def set_exiting():
     global EXITING
     with SignalHandler.LOCK:
@@ -118,17 +122,25 @@ def parse_args(args=None):
         help='set port number',
     )
     parser.add_argument(
+        '-d',
+        '--dir',
+        metavar='DIR',
+        default=default_html_dir(),
+        help='HTML directory path',
+    )
+    parser.add_argument(
         '-v', '--void', metavar='PATH', dest='backup', help='set path to the void'
     )
     return parser.parse_args(args)
 
 
 def main(args=None):
+    args = parse_args(args)
+
     # It's a failsafe; this script is only allowed to serve the directory it
     # resides in.
-    os.chdir(script_dir())
+    os.chdir(args.dir)
 
-    args = parse_args(args)
     with Void(args.backup) as void:
         RequestHandler.VOID = void
         httpd = make_server(args.port)

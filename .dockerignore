@@ -1,6 +1,5 @@
 *
 
-!app.py
-!index.html
+!html/
 !requirements.txt
-!server.py
+!src/
