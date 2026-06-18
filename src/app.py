@@ -24,19 +24,19 @@ class Response:
         self.body = body
 
     def headers(self):
-        yield 'Content-Type', 'text/html; charset=utf-8'
+        yield "Content-Type", "text/html; charset=utf-8"
 
     def encode_body(self):
-        return self.body.encode(errors='replace')
+        return self.body.encode(errors="replace")
 
     def write_as_cgi_script(self):
         self.write_headers_as_cgi_script()
         self.write_body_as_cgi_script()
 
     def write_headers_as_cgi_script(self):
-        print(f'{self.status.value} {self.status.phrase}')
+        print(f"{self.status.value} {self.status.phrase}")
         for name, val in self.headers():
-            print(f'{name}: {val}')
+            print(f"{name}: {val}")
         print()
 
     def write_body_as_cgi_script(self):
@@ -88,11 +88,11 @@ class Void:
             self.cnt = cnt
 
     def save(self, path):
-        with open(path, 'w', encoding='utf-8') as fd:
+        with open(path, "w", encoding="utf-8") as fd:
             self.write(fd)
 
     def restore(self, path):
-        with open(path, encoding='utf-8') as fd:
+        with open(path, encoding="utf-8") as fd:
             self.read(fd)
 
     def scream_once(self):
@@ -108,16 +108,16 @@ class Void:
 
 
 class Request(Enum):
-    SCREAM_ONCE = 'scream'
-    HOW_MANY_SCREAMS = 'screams'
+    SCREAM_ONCE = "scream"
+    HOW_MANY_SCREAMS = "screams"
 
     def __str__(self):
         return self.value
 
     @staticmethod
     def from_http_path(path):
-        if not path or path[0] != '/':
-            raise ValueError('HTTP path must start with a forward slash /')
+        if not path or path[0] != "/":
+            raise ValueError("HTTP path must start with a forward slash /")
         return Request(path[1:])
 
     def process(self, void):
@@ -125,12 +125,12 @@ class Request(Enum):
             return void.scream_once()
         if self is Request.HOW_MANY_SCREAMS:
             return void.get_numof_screams()
-        raise NotImplementedError(f'unknown request: {self}')
+        raise NotImplementedError(f"unknown request: {self}")
 
 
 def process_cgi_request(void):
     params = cgi.FieldStorage()
-    what = params['what'].value
+    what = params["what"].value
     Request(what).process(void).write_as_cgi_script()
 
 
@@ -139,7 +139,7 @@ def parse_args(args=None):
         args = sys.argv[1:]
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        '-v', '--void', metavar='PATH', dest='backup', help='set path to the void'
+        "-v", "--void", metavar="PATH", dest="backup", help="set path to the void"
     )
     return parser.parse_args(args)
 
@@ -150,5 +150,5 @@ def main(args=None):
         process_cgi_request(void)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

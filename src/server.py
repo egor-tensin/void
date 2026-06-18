@@ -25,7 +25,7 @@ def script_dir():
 
 
 def default_html_dir():
-    return os.path.join(script_dir(), 'html')
+    return os.path.join(script_dir(), "html")
 
 
 def set_exiting():
@@ -58,12 +58,12 @@ class SignalHandler:
 
 
 def handle_sigterm(signum, frame):
-    print('\nSIGTERM received, exiting...')
+    print("\nSIGTERM received, exiting...")
     set_exiting()
 
 
 def handle_sigint():
-    print('\nKeyboard interrupt received, exiting...')
+    print("\nKeyboard interrupt received, exiting...")
     set_exiting()
 
 
@@ -80,10 +80,10 @@ class RequestHandler(http.server.SimpleHTTPRequestHandler):
     VOID = None
 
     def address_string(self):
-        if 'x-forwarded-for' in self.headers:
-            return self.headers['x-forwarded-for'].split(',')[0].strip()
-        if 'x-real-ip' in self.headers:
-            return self.headers['x-real-ip']
+        if "x-forwarded-for" in self.headers:
+            return self.headers["x-forwarded-for"].split(",")[0].strip()
+        if "x-real-ip" in self.headers:
+            return self.headers["x-real-ip"]
         return super().address_string()
 
     def do_GET(self):
@@ -102,7 +102,7 @@ class RequestHandler(http.server.SimpleHTTPRequestHandler):
 
 
 def make_server(port):
-    addr = ('', port)
+    addr = ("", port)
     server = http.server.HTTPServer
     if sys.version_info >= (3, 7):
         server = http.server.ThreadingHTTPServer
@@ -114,22 +114,22 @@ def parse_args(args=None):
         args = sys.argv[1:]
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        '-p',
-        '--port',
-        metavar='PORT',
+        "-p",
+        "--port",
+        metavar="PORT",
         type=int,
         default=DEFAULT_PORT,
-        help='set port number',
+        help="set port number",
     )
     parser.add_argument(
-        '-d',
-        '--dir',
-        metavar='DIR',
+        "-d",
+        "--dir",
+        metavar="DIR",
         default=default_html_dir(),
-        help='HTML directory path',
+        help="HTML directory path",
     )
     parser.add_argument(
-        '-v', '--void', metavar='PATH', dest='backup', help='set path to the void'
+        "-v", "--void", metavar="PATH", dest="backup", help="set path to the void"
     )
     return parser.parse_args(args)
 
@@ -151,5 +151,5 @@ def main(args=None):
                 handle_sigint()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
