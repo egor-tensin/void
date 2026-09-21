@@ -2,7 +2,7 @@
 
 # Copyright (c) 2022 Egor Tensin <egor@tensin.name>
 # This file is part of the "void" project.
-# For details, see https://github.com/egor-tensin/void.
+# For details, see https://github.com/egor-tensin/void
 # Distributed under the MIT License.
 
 import argparse
