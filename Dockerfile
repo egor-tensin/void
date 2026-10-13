@@ -2,10 +2,13 @@ FROM python:3.14-alpine
 
 RUN mkdir -p /var/lib/void
 
-COPY [".", "/opt/void/"]
-WORKDIR /opt/void
+WORKDIR /app
 
+COPY ["requirements.txt", "/app/"]
 RUN pip install -q -r requirements.txt
+
+COPY ["html/", "/app/html/"]
+COPY ["src/", "/app/src/"]
 
 # I don't know why, but in Docker, simple print() statements show nothing:
 # https://stackoverflow.com/q/29663459
